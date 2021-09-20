@@ -1,3 +1,3 @@
-# M1-TLI-Grapher
+# JavaSWING - Grapher
 
-squelette du grapher pour les TPs de TLI
+squelette du grapher pour les TPs d'IHM
