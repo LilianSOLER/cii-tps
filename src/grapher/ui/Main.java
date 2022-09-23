@@ -1,5 +1,5 @@
 /* grapher.ui.Main
- * (c) blanch@imag.fr 2021–                                                */
+ * (c) blanch@imag.fr 2021–2023                                            */
 
 package grapher.ui;
 
