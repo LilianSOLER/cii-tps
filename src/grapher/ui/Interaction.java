@@ -1,19 +1,17 @@
 package grapher.ui;
 
+import java.awt.*;
 import java.awt.event.*;
-import java.awt.Point;
 
 public class Interaction implements MouseListener, MouseMotionListener, MouseWheelListener {
+	static final int D_DRAG = 5; // dragging max distance
+
+	private Point pressedPosition; // mouse pressed position
 	private State state;
 	private Grapher grapher;
-	//enum State { UP, CLIC_OR_DRAG, DRAG } // possible states
-	   Point p; // mouse pressed position
-	   static final int D_DRAG = 5; // dragging max distance
-	  
+
 	public Interaction() {
 		state = State.Default;
-		this.grapher=grapher;
-
 	}
 
 	@Override
@@ -37,23 +35,17 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 		switch (mouseEvent.getButton()) {
 			case MouseEvent.BUTTON1:
 				state = State.PressedLeft;
+				pressedPosition = mouseEvent.getPoint();
 				break;
 			case MouseEvent.BUTTON2:
 				state = State.PressedWheel;
 				break;
 			case MouseEvent.BUTTON3:
 				state = State.PressedRight;
+				pressedPosition = mouseEvent.getPoint();
 				break;
 		}
 		System.out.println("mousePressed: " + state);
-		/*switch(state) {
-	      case UP:
-	         p = e.getPoint();
-	         state = State.CLIC_OR_DRAG;
-	         break;
-	      default: 
-	         throw new RuntimeException();
-	      }	*/
 	}
 
 	@Override
@@ -68,16 +60,6 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 		}
 		state = State.Default;
 		System.out.println("mouseReleased: " + state);
-		/*switch(state) {
-	      case CLIC_OR_DRAG:
-	         state = State.UP;
-	         break;
-	      case DRAG:
-	         state = State.UP;
-	         break;
-	      default: 
-	         throw new RuntimeException();
-	      }*/
 	}
 
 	@Override
@@ -92,6 +74,7 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseDragged(MouseEvent mouseEvent) {
+		//TODO: implement dragging through Benjamin's comments
 		switch (mouseEvent.getButton()) {
 			case MouseEvent.BUTTON1:
 				state = State.DraggedLeft;
@@ -102,7 +85,8 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 		}
 		System.out.println("mouseDragged: " + state);
 		
-		/*switch(state) {
+		/*
+		switch(state) {
 	      case CLIC_OR_DRAG:
 	         if(p.distance(e.getPoint()) > D_DRAG) {
 	            state = State.DRAG;
@@ -118,9 +102,7 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 	    		  
 	    	  }
 	         break;
-	      default: 
-	         throw new RuntimeException();
-	      }*/
+	      */
 	}
 
 	@Override
