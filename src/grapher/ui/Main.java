@@ -13,7 +13,9 @@ public class Main extends JFrame {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		Grapher grapher = new Grapher();		
+		Grapher grapher = new Grapher();
+		interaction.setGrapher(grapher);
+
 		for(String expression: expressions) {
 			grapher.add(expression);
 		}

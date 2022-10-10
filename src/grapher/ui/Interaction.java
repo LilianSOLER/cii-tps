@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class Interaction implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private State state;
+	private Grapher grapher;
 
 	public Interaction() {
 		state = State.Default;
@@ -42,6 +43,14 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseReleased(MouseEvent mouseEvent) {
+		switch (state) {
+		case PressedLeft:
+			this.grapher.zoom(mouseEvent.getPoint(), 5);
+			break;
+		case PressedRight:
+			this.grapher.zoom(mouseEvent.getPoint(), -5);
+			break;
+		}
 		state = State.Default;
 		System.out.println("mouseReleased: " + state);
 	}
@@ -79,5 +88,9 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 		state = State.DraggedWheel;
 		System.out.println("mouseWheelMoved: " + state);
 		System.out.println("mouseWheelMoved: " + mouseWheelEvent.getWheelRotation());
+	}
+
+	public void setGrapher(Grapher grapher) {
+		this.grapher = grapher;
 	}
 }
