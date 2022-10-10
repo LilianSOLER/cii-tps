@@ -4,6 +4,10 @@ import java.awt.event.*;
 
 public class Interaction implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private State state;
+
+	public Interaction() {
+		state = State.Default;
+	}
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
 		switch(mouseEvent.getButton()) {
