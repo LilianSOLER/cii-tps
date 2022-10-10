@@ -9,34 +9,35 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 	public Interaction() {
 		state = State.Default;
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-		switch(mouseEvent.getButton()) {
-		case MouseEvent.BUTTON1:
-			state = State.ClickedLeft;
-			break;
-		case MouseEvent.BUTTON2:
-			state = State.ClickedWheel;
-			break;
-		case MouseEvent.BUTTON3:
-			state = State.ClickedRight;
-			break;
+		switch (mouseEvent.getButton()) {
+			case MouseEvent.BUTTON1:
+				state = State.ClickedLeft;
+				break;
+			case MouseEvent.BUTTON2:
+				state = State.ClickedWheel;
+				break;
+			case MouseEvent.BUTTON3:
+				state = State.ClickedRight;
+				break;
 		}
 		System.out.println("mouseClicked: " + state);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent mouseEvent) {
-		switch(mouseEvent.getButton()) {
-		case MouseEvent.BUTTON1:
-			state = State.PressedLeft;
-			break;
-		case MouseEvent.BUTTON2:
-			state = State.PressedWheel;
-			break;
-		case MouseEvent.BUTTON3:
-			state = State.PressedRight;
-			break;
+		switch (mouseEvent.getButton()) {
+			case MouseEvent.BUTTON1:
+				state = State.PressedLeft;
+				break;
+			case MouseEvent.BUTTON2:
+				state = State.PressedWheel;
+				break;
+			case MouseEvent.BUTTON3:
+				state = State.PressedRight;
+				break;
 		}
 		System.out.println("mousePressed: " + state);
 	}
@@ -44,12 +45,12 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 	@Override
 	public void mouseReleased(MouseEvent mouseEvent) {
 		switch (state) {
-		case PressedLeft:
-			this.grapher.zoom(mouseEvent.getPoint(), 5);
-			break;
-		case PressedRight:
-			this.grapher.zoom(mouseEvent.getPoint(), -5);
-			break;
+			case PressedLeft:
+				this.grapher.zoom(mouseEvent.getPoint(), 5);
+				break;
+			case PressedRight:
+				this.grapher.zoom(mouseEvent.getPoint(), -5);
+				break;
 		}
 		state = State.Default;
 		System.out.println("mouseReleased: " + state);
@@ -67,13 +68,13 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseDragged(MouseEvent mouseEvent) {
-		switch(mouseEvent.getButton()) {
-		case MouseEvent.BUTTON1:
-			state = State.DraggedLeft;
-			break;
-		case MouseEvent.BUTTON2:
-			state = State.DraggedWheel;
-			break;
+		switch (mouseEvent.getButton()) {
+			case MouseEvent.BUTTON1:
+				state = State.DraggedLeft;
+				break;
+			case MouseEvent.BUTTON2:
+				state = State.DraggedWheel;
+				break;
 		}
 		System.out.println("mouseDragged: " + state);
 	}
@@ -85,7 +86,7 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-		if(state != State.DraggedWheel){
+		if (state != State.DraggedWheel) {
 			state = State.DraggedWheel;
 		}
 

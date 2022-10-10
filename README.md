@@ -24,3 +24,26 @@ Benjamin Bracquier - Lilian Soler
   pointillé, pour zoomer sur cette sélection lorsque le bouton est relâché (TODO)
 - le clic gauche (resp. droit) permette de zoomer (resp. dézoomer) de 5%, centré sur le curseur (DONE)
 - la molette (ou le drag bouton du milieu) doit permettre de zoomer ou dézoomer, centré sur le curseur. (DONE)
+
+---
+
+## Placement
+
+4. Rendez la liste des fonctions visibles dans une bande redimensionnable à gauche de la
+   fenêtre ([JSplitPane](https://docs.oracle.com/javase/9/docs/api/javax/swing/JSplitPane.html)
+   , [JList](https://docs.oracle.com/javase/9/docs/api/javax/swing/JSplitPane.html)). (DONE)
+
+--- 
+
+## Interaction avec la liste
+
+5. Faites en sorte que les fonctions sélectionnées dans la liste soient affichées en gras sur le graphique. (TODO)
+6. Permettez la suppression des fonctions sélectionnées et l'ajout de nouvelles fonctions grâce à une barre de
+   boutons ([How to Use Tool Bars](http://java.sun.com/docs/books/tutorial/uiswing/components/toolbar.html)
+   et [JToolBar](https://docs.oracle.com/javase/9/docs/api/javax/swing/JToolBar.html)
+   , [AbstractAction](https://docs.oracle.com/javase/9/docs/api/javax/swing/AbstractAction.html)
+   , [JOptionPane](https://docs.oracle.com/javase/9/docs/api/javax/swing/JOptionPane.html)). (TODO)
+
+- Le programme résultant pourra ressembler à cette capture :
+
+- ![Capture d'écran](http://iihm.imag.fr/blanch/info4/IHM/tps/1-grapher/img-00.png)
