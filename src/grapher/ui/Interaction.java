@@ -85,7 +85,19 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-		state = State.DraggedWheel;
+		if(state != State.DraggedWheel){
+			state = State.DraggedWheel;
+		}
+
+		switch (mouseWheelEvent.getWheelRotation()) {
+			case 1:
+				this.grapher.zoom(mouseWheelEvent.getPoint(), -5);
+				break;
+			case -1:
+				this.grapher.zoom(mouseWheelEvent.getPoint(), 5);
+				break;
+		}
+
 		System.out.println("mouseWheelMoved: " + state);
 		System.out.println("mouseWheelMoved: " + mouseWheelEvent.getWheelRotation());
 	}
