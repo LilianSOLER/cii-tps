@@ -1,10 +1,10 @@
 *.class
 .DS_Store
-<<<<<<< HEAD
 /bin/
-=======
 .idea
 *.iml
 out/
 build/
->>>>>>> a48713a10cbad2ffca99a0c7e9b488866158ce82
+.classpath
+.project
+
