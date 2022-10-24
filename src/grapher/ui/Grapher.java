@@ -272,4 +272,11 @@ public class Grapher extends JPanel {
 		getGraphics().drawRect(min(pressedPosition.x, point.x), min(pressedPosition.y, point.y), abs(pressedPosition.x - point.x), abs(pressedPosition.y - point.y));
 	}
 
+	public void clear() {
+		functions.clear();
+		colors.clear();
+		thickness.clear();
+		visible.clear();
+		repaint();
+	}
 }
