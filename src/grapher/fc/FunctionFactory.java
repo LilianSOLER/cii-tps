@@ -11,27 +11,15 @@ package grapher.fc;
 
 /* imports *****************************************************************/
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+import javax.tools.*;
+import javax.tools.JavaFileObject.Kind;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import java.security.SecureClassLoader;
-
 import java.net.URI;
-
-import javax.tools.FileObject;
-import javax.tools.JavaFileObject;
-import javax.tools.JavaFileObject.Kind;
-import javax.tools.SimpleJavaFileObject;
-import javax.tools.JavaFileManager;
-import javax.tools.ForwardingJavaFileManager;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
+import java.security.SecureClassLoader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /* factory *****************************************************************/
@@ -39,7 +27,7 @@ import javax.tools.ToolProvider;
 public class FunctionFactory {
 	public static Function createFunction(String expression) {
 		String name = "grapher.fc.DynamicFunction";
-		
+
 		StringBuilder src = new StringBuilder();
 		src.append("package grapher.fc;\n");
 		src.append("import static java.lang.Math.*;\n");
@@ -50,25 +38,40 @@ public class FunctionFactory {
 
 		class CharSequenceJavaFileObject extends SimpleJavaFileObject {
 			private CharSequence content;
+
 			public CharSequenceJavaFileObject(String name, CharSequence content) {
 				super(URI.create("string:///" + name.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
 				this.content = content;
 			}
-			public CharSequence getCharContent(boolean ignoreEncodingErrors) { return content; }
+
+			public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+				return content;
+			}
 		}
 
 		class JavaClassObject extends SimpleJavaFileObject {
 			protected final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
 			public JavaClassObject(String name, Kind kind) {
 				super(URI.create("string:///" + name.replace('.', '/') + kind.extension), kind);
 			}
-			public byte[] getBytes() { return bos.toByteArray(); }
-			public OutputStream openOutputStream() throws IOException { return bos; }
+
+			public byte[] getBytes() {
+				return bos.toByteArray();
+			}
+
+			public OutputStream openOutputStream() throws IOException {
+				return bos;
+			}
 		}
-		
+
 		class ClassFileManager extends ForwardingJavaFileManager {
 			private JavaClassObject object;
-			public ClassFileManager(StandardJavaFileManager manager) { super(manager); }
+
+			public ClassFileManager(StandardJavaFileManager manager) {
+				super(manager);
+			}
+
 			public ClassLoader getClassLoader(Location location) {
 				return new SecureClassLoader() {
 					protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -77,6 +80,7 @@ public class FunctionFactory {
 					}
 				};
 			}
+
 			public JavaFileObject getJavaFileForOutput(Location location, String name, Kind kind, FileObject sibling) throws IOException {
 				object = new JavaClassObject(name, kind);
 				return object;
@@ -88,10 +92,10 @@ public class FunctionFactory {
 		List<JavaFileObject> files = new ArrayList<JavaFileObject>();
 		files.add(new CharSequenceJavaFileObject(name, src.toString()));
 		compiler.getTask(null, file_manager, null, null, null, files).call();
-		
+
 		try {
-			return (Function)file_manager.getClassLoader(null).loadClass(name).newInstance();
-		
+			return (Function) file_manager.getClassLoader(null).loadClass(name).newInstance();
+
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
 		} catch (ClassNotFoundException e) {
