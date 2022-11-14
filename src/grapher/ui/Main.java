@@ -34,12 +34,14 @@ public class Main extends JFrame {
 		JPanel sideBar = new JPanel();
 		sideBar.setLayout(new BorderLayout());
 
-
+		JTable expressionTable = new JTable();
+		expressionTable.setModel(grapher.getTableModel());
+		sideBar.add(expressionTable, BorderLayout.CENTER);
+		/*
 		JList expressionsList = new JList();
 		expressionsList.setModel(grapher.functions);
 		expressionsList.addListSelectionListener(interaction);
 		splitPane.setLeftComponent(expressionsList);
-
 
 		JToolBar toolBar = new JToolBar();
 		JButton addButton = new JButton("Add");
@@ -63,6 +65,7 @@ public class Main extends JFrame {
 
 		sideBar.add(expressionsList, BorderLayout.CENTER);
 		sideBar.add(toolBar, BorderLayout.SOUTH);
+		*/
 
 		splitPane.setLeftComponent(sideBar);
 

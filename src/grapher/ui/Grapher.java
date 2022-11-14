@@ -13,6 +13,8 @@ import grapher.fc.Function;
 import grapher.fc.FunctionFactory;
 
 import javax.swing.*;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.math.BigDecimal;
 
@@ -278,5 +280,82 @@ public class Grapher extends JPanel {
 		thickness.clear();
 		visible.clear();
 		repaint();
+	}
+
+	public TableModel getTableModel() {
+		return new TableModel() {
+
+			@Override
+			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+				if (columnIndex == 0) {
+					visible.set(rowIndex, (Boolean) aValue);
+				} else if (columnIndex == 1) {
+					colors.set(rowIndex, (Color) aValue);
+				} else if (columnIndex == 2) {
+					thickness.set(rowIndex, (Integer) aValue);
+				}
+				repaint();
+			}
+
+			@Override
+			public void addTableModelListener(TableModelListener tableModelListener) {
+
+			}
+
+			@Override
+			public void removeTableModelListener(TableModelListener l) {
+			}
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return true;
+			}
+
+			@Override
+			public Object getValueAt(int rowIndex, int columnIndex) {
+				if (columnIndex == 0) {
+					return visible.get(rowIndex);
+				} else if (columnIndex == 1) {
+					return colors.get(rowIndex);
+				} else if (columnIndex == 2) {
+					return thickness.get(rowIndex);
+				} else {
+					return functions.get(rowIndex);
+				}
+			}
+
+			@Override
+			public int getRowCount() {
+				return functions.size();
+			}
+
+			@Override
+			public String getColumnName(int columnIndex) {
+				if (columnIndex == 0) {
+					return "Visible";
+				} else if (columnIndex == 1) {
+					return "Color";
+				} else if (columnIndex == 2) {
+					return "Thickness";
+				} else {
+					return "Function";
+				}
+			}
+
+			@Override
+			public int getColumnCount() {
+				return 4;
+			}
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				if (columnIndex == 0) {
+					return Boolean.class;
+				} else if (columnIndex == 1) {
+					return Color.class;
+				} else
+					return String.class;
+			}
+		};
 	}
 }
