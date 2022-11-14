@@ -92,6 +92,18 @@ public class Grapher extends JPanel {
 		repaint();
 	}
 
+	void remove2(int index) {
+		if (index >= 0) {
+			functions.remove(index);
+			colors.remove(index);
+			visible.remove(index);
+			thickness.remove(index);
+			repaint();
+		} else {
+			JOptionPane.showMessageDialog(null, "You must have at least one function");
+		}
+	}
+
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 

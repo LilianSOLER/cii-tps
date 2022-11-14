@@ -34,10 +34,6 @@ public class Main extends JFrame {
 		JPanel sideBar = new JPanel();
 		sideBar.setLayout(new BorderLayout());
 
-		JTable expressionTable = new JTable();
-		expressionTable.setModel(grapher.getTableModel());
-		sideBar.add(expressionTable, BorderLayout.CENTER);
-		/*
 		JList expressionsList = new JList();
 		expressionsList.setModel(grapher.functions);
 		expressionsList.addListSelectionListener(interaction);
@@ -53,8 +49,9 @@ public class Main extends JFrame {
 		});
 		JButton removeButton = new JButton("Remove");
 		removeButton.addActionListener(e -> {
-			if (expressionsList.getSelectedIndex() != -1) {
-				grapher.remove(expressionsList.getSelectedIndex());
+			int lastIndex = expressionsList.getLastVisibleIndex();
+			if (lastIndex != -1) {
+				grapher.remove2(lastIndex - 1);
 			}
 		});
 		JButton clearButton = new JButton("Clear");
@@ -65,9 +62,38 @@ public class Main extends JFrame {
 
 		sideBar.add(expressionsList, BorderLayout.CENTER);
 		sideBar.add(toolBar, BorderLayout.SOUTH);
-		*/
 
 		splitPane.setLeftComponent(sideBar);
+
+		// create a menu bar
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("Expressions");
+		JMenuItem menuItem = new JMenuItem("Add");
+		menuItem.addActionListener(e -> {
+			String expression = JOptionPane.showInputDialog("Expression");
+			if (expression != null) {
+				grapher.add(expression);
+			}
+		});
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Remove");
+		menuItem.addActionListener(e -> {
+			int lastIndex = expressionsList.getLastVisibleIndex();
+			if (lastIndex != -1) {
+				grapher.remove2(lastIndex - 1);
+			}
+		});
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Clear");
+		menuItem.addActionListener(e -> grapher.clear());
+		menu.add(menuItem);
+		menuBar.add(menu);
+		setJMenuBar(menuBar);
+
+		// translate the menu bar to 20px to the right
+		// to avoid overlapping with the window's border
+		// (this is a hack, but it works)
+		menuBar.setBounds(20, 0, menuBar.getWidth(), menuBar.getHeight());
 
 		add(splitPane);
 
